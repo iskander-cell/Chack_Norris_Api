@@ -5,23 +5,15 @@ import { useEffect, useState } from 'react';
 import { axiosApi } from '../../axiosApi';
 import { ListItem, ListItemButton } from '@mui/material';
 import { useNavigate } from 'react-router';
+import { useJokeStore } from '../../Store/use-jokes-store';
 
 
 export const NavBar = () => {
-
-  const [categories, setCategories] = useState<string[]>([]);
+  const {categories, getCategoriesList} = useJokeStore()
+  // const [categories, setCategories] = useState<string[]>([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getCategoriesList = async() => {
-      try {
-        const response = await axiosApi('/categories');
-        const categoriesData = response.data;
-        setCategories(categoriesData);
-      } catch (e) {
-        console.log(e);
-      }
-    }
     getCategoriesList();
   },[])
 
